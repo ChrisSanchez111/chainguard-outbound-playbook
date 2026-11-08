@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CVE Remediation Cost Calculator</title>
+<style>
+  :root {
+    --bg: #f7f8fa; --card: #ffffff; --ink: #14171f; --muted: #5b6475;
+    --line: #e3e6ec; --accent: #4c3ee0; --good: #2b8a3e; --warn: #c2410c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0f1218; --card: #171b23; --ink: #e8ebf1; --muted: #9aa3b5;
+      --line: #2a303c; --accent: #9b8cff; --good: #5cc477; --warn: #ff8a50; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 1.7rem; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); margin: 0 0 28px; }
+  .tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .tab { border: 1px solid var(--line); background: var(--card); color: var(--ink);
+    padding: 8px 14px; border-radius: 999px; cursor: pointer; font: inherit; font-size: .9rem; }
+  .tab[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 6px; }
+  input { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px;
+    background: var(--bg); color: var(--ink); font: inherit; }
+  .results { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px; margin-top: 22px; }
+  .stat { border-top: 3px solid var(--line); padding-top: 10px; }
+  .stat .k { font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .stat .v { font-size: 1.6rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .stat.warn { border-color: var(--warn); } .stat.warn .v { color: var(--warn); }
+  .stat.good { border-color: var(--good); } .stat.good .v { color: var(--good); }
+  .note { color: var(--muted); font-size: .85rem; margin-top: 18px; }
+  [hidden] { display: none; }
+  footer { color: var(--muted); font-size: .8rem; margin-top: 28px; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>What are base image CVEs costing you?</h1>
+  <p class="sub">Two quick models for the conversations Chainguard is built for: engineer time spent patching base images, and FedRAMP continuous monitoring. Every input is editable.</p>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-tab="toil">Patching time</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="fedramp">FedRAMP findings</button>
+  </div>
+
+  <section class="card" id="toil">
+    <div class="grid">
+      <div><label for="t_images">Container images you maintain</label><input id="t_images" type="number" min="0" value="40"></div>
+      <div><label for="t_cves">New CVEs per image per month (from base layers)</label><input id="t_cves" type="number" min="0" step="0.5" value="3"></div>
+      <div><label for="t_hours">Engineer hours to triage and fix each CVE</label><input id="t_hours" type="number" min="0" step="0.25" value="1"></div>
+      <div><label for="t_rate">Loaded engineer cost per hour ($)</label><input id="t_rate" type="number" min="0" value="95"></div>
+      <div><label for="t_cut">CVE reduction with hardened images (%)</label><input id="t_cut" type="number" min="0" max="100" step="0.1" value="97.6"></div>
+    </div>
+    <div class="results">
+      <div class="stat warn"><div class="k">Patching cost / year</div><div class="v" id="t_cost">-</div></div>
+      <div class="stat good"><div class="k">Cost avoided / year</div><div class="v" id="t_save">-</div></div>
+      <div class="stat"><div class="k">Engineer hours freed / year</div><div class="v" id="t_freed">-</div></div>
+    </div>
+    <p class="note">The 97.6% default is Chainguard's published average reduction versus open source equivalents. Treat savings as an upper bound and replace every default with your own scan data.</p>
+  </section>
+
+  <section class="card" id="fedramp" hidden>
+    <div class="grid">
+      <div><label for="f_images">Images inside the FedRAMP boundary</label><input id="f_images" type="number" min="0" value="25"></div>
+      <div><label for="f_high">High or critical findings per image per month</label><input id="f_high" type="number" min="0" step="0.5" value="2"></div>
+      <div><label for="f_late">Share not fixed within 30 days (%)</label><input id="f_late" type="number" min="0" max="100" value="30"></div>
+      <div><label for="f_poam">Hours to write and track each POA&amp;M entry</label><input id="f_poam" type="number" min="0" step="0.5" value="3"></div>
+      <div><label for="f_rate">Loaded cost per hour ($)</label><input id="f_rate" type="number" min="0" value="95"></div>
+      <div><label for="f_cut">Finding reduction with hardened images (%)</label><input id="f_cut" type="number" min="0" max="100" step="0.1" value="97.6"></div>
+    </div>
+    <div class="results">
+      <div class="stat warn"><div class="k">POA&amp;M entries / year</div><div class="v" id="f_count">-</div></div>
+      <div class="stat warn"><div class="k">POA&amp;M cost / year</div><div class="v" id="f_cost">-</div></div>
+      <div class="stat good"><div class="k">Entries avoided / year</div><div class="v" id="f_save">-</div></div>
+    </div>
+    <p class="note">FedRAMP expects high findings fixed within 30 days; anything past that needs a POA&amp;M entry. Inputs are illustrative assumptions, not Chainguard or FedRAMP benchmarks.</p>
+  </section>
+
+  <footer>Built by Chris Sanchez as part of a <a href="https://github.com/ChrisSanchez111/chainguard-outbound-playbook">Chainguard outbound playbook</a>. Not an official Chainguard tool; assumptions are illustrative.</footer>
+</main>
+<script>
+  const $ = id => document.getElementById(id);
+  const num = id => Math.max(0, parseFloat($(id).value) || 0);
+  const pct = id => Math.min(num(id), 100) / 100;
+  const usd = n => n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  const int = n => Math.round(n).toLocaleString();
+
+  function toil() {
+    const cves = num("t_images") * num("t_cves") * 12;
+    const hours = cves * num("t_hours");
+    const cost = hours * num("t_rate");
+    const cut = pct("t_cut");
+    $("t_cost").textContent = usd(cost);
+    $("t_save").textContent = usd(cost * cut);
+    $("t_freed").textContent = int(hours * cut);
+  }
+  function fedramp() {
+    const entries = num("f_images") * num("f_high") * pct("f_late") * 12;
+    const cost = entries * num("f_poam") * num("f_rate");
+    $("f_count").textContent = int(entries);
+    $("f_cost").textContent = usd(cost);
+    $("f_save").textContent = int(entries * pct("f_cut"));
+  }
+  document.querySelectorAll("input").forEach(i => i.addEventListener("input", () => { toil(); fedramp(); }));
+  document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(x => x.setAttribute("aria-selected", x === t));
+    $("toil").hidden = t.dataset.tab !== "toil";
+    $("fedramp").hidden = t.dataset.tab !== "fedramp";
+  }));
+  toil(); fedramp();
+</script>
+</body>
+</html>
