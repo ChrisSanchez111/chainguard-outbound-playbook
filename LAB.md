@@ -1,12 +1,14 @@
-# Hands-On Lab: Scanning Chainguard Myself
+# Hands-On Lab: Running Chainguard Myself
 
-I didn't want to repeat "97.6% fewer CVEs" to a security engineer without testing it first. So I took one common web server, nginx, and ran the standard image and Chainguard's image through the same scanner. Date: November 9, 2026.
+I wanted to test Chainguard's claims before pitching them to security engineers. I scanned the standard nginx image and Chainguard's nginx image with the same tool and compared the results. Date: November 9, 2026.
 
 ## Setup
 
-- A GitHub Codespace on this repo: a Linux machine in the browser with Docker already installed
-- Scanner: Grype v0.121.2, a free, independent open source tool
-- Images: `nginx:latest` from Docker Hub and `cgr.dev/chainguard/nginx:latest`, which pulled with no login or account
+I ran this in a GitHub Codespace on this repo, which comes with Docker installed.
+
+- Scanner: Grype v0.121.2, a free open source tool from Anchore
+- Images: `nginx:latest` from Docker Hub and `cgr.dev/chainguard/nginx:latest`
+- The Chainguard image pulled without a login
 
 ## Results
 
@@ -28,22 +30,22 @@ I didn't want to repeat "97.6% fewer CVEs" to a security engineer without testin
 | Shell at `/bin/sh` | Yes | No (`no such file or directory`) |
 | Default user | Not set, so root | 65532 (non-root) |
 
-Then I started the Chainguard image and sent it a request. It answered `HTTP/1.1 200 OK`, so the smaller image still does its job.
+I then started the Chainguard image and sent it a request. It returned `HTTP/1.1 200 OK`.
 
-## What it taught me
+## What I learned
 
-1. The savings come from what's missing. Most of the stock findings sit in packages nginx doesn't need to serve a page. Going from 153 packages to 23 removes the problem instead of tracking it.
-2. Patching wouldn't have closed this gap. Only 3 of the 355 stock matches had a fix available. So when a prospect says "we patch base images ourselves," the better question is what they do about the findings that have no patch to apply. Under FedRAMP, those still have to be tracked.
-3. A smaller attack surface is the default. With no shell and a non-root user, there's less for an attacker to work with after getting in, and nobody on the customer's team had to configure that.
-4. Zero isn't the right promise. Chainguard's image still showed one High. New vulnerabilities will keep appearing in any software, which is why the remediation SLA matters as much as the clean scan.
+1. Chainguard's image has 23 packages to stock's 153, and it's 88% smaller. Fewer packages meant fewer findings.
+2. Only 3 of the 355 stock matches showed a fix available. If a prospect says "we patch base images ourselves," I'd ask what they do about the findings with no patch.
+3. Chainguard's image has no shell and doesn't run as root by default.
+4. Chainguard's image still had one High. I'd talk about the SLA along with the scan results.
 
-## What this doesn't prove
+## Limits
 
-This is one image, one scanner, one morning. My result is better than Chainguard's published 97.6% average, but I wouldn't quote it as a benchmark. 68 of the stock findings are rated Negligible (123 remain without them). A real FedRAMP boundary also has the customer's own layers on top, which is why the useful test is their last scan against their own images.
+I only tested one image, so I wouldn't quote this as a benchmark. It came out better than Chainguard's published 97.6% average. 68 of the stock findings are rated Negligible. A customer's images also have their own code on top, so the real test is a scan of their images.
 
 ## How I'd explain it to a buyer
 
-"I scanned stock nginx against Chainguard's build this morning. 67 critical and high findings became 1, and almost none of the stock findings had a fix you could apply. Worth running the same comparison on your own images?"
+"I scanned stock nginx and Chainguard's nginx. Stock had 67 critical and high findings. Chainguard's had 1. Can we run the same comparison on your images?"
 
 ## Commands, for anyone repeating this
 
