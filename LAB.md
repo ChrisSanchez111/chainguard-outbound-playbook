@@ -37,7 +37,7 @@ I then started the Chainguard image and sent it a request. It returned `HTTP/1.1
 1. Chainguard's image has 23 packages to stock's 153, and it's 88% smaller. Fewer packages meant fewer findings.
 2. Only 3 of the 355 stock matches showed a fix available. If a prospect says "we patch base images ourselves," I'd ask what they do about the findings with no patch.
 3. Chainguard's image has no shell and doesn't run as root by default.
-4. Chainguard's image still had one High. I'd talk about the SLA along with the scan results.
+4. Chainguard's image still had one High: CVE-2026-84243 in glibc. It went public on October 30, about 10 days before my scan. An attacker needs local access to use it, the scan put the chance of exploitation at 0.3%, and Debian's tracker still listed it as unfixed. New flaws like this will keep showing up, so I'd talk about how fast Chainguard fixes them along with the scan results.
 
 ## Limits
 
@@ -71,4 +71,4 @@ curl -sI localhost:8080 | head -1
 docker rm -f cg
 ```
 
-Sources: [Grype](https://github.com/anchore/grype) · [Getting started with the nginx Chainguard Container](https://www.chainguard.dev/docs/chainguard/containers/getting-started/web-and-data-services/nginx/index.md)
+Sources: [Grype](https://github.com/anchore/grype) · [Debian tracker: CVE-2026-84243](https://security-tracker.debian.org/tracker/CVE-2026-84243) · [Getting started with the nginx Chainguard Container](https://www.chainguard.dev/docs/chainguard/containers/getting-started/web-and-data-services/nginx/index.md)
