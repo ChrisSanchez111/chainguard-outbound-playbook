@@ -23,6 +23,7 @@ Thanks for taking a look.
 | [`playbook/product-quick-reference.md`](playbook/product-quick-reference.md) | Every product mapped to use case, persona, pain and a qualifying question, plus competitors and objections | A cheat sheet for live calls |
 | [`playbook/icp-and-signals.md`](playbook/icp-and-signals.md) | The wider market: four buyer segments and the signals behind the scoring | Context for where the list came from |
 | [`tools/signal_scorer.py`](tools/signal_scorer.py) ([see the output](tools/call-sheet.md)) | Scores the target list on weighted buying signals and outputs a tiered call sheet | Turns a raw list into a prioritized call sheet |
+| [`LAB.md`](LAB.md) | I scanned stock nginx against Chainguard's image myself: 67 critical and high findings became 1, on an image 88% smaller that still served traffic | Hands-on, not just research |
 | [`calculator/index.html`](calculator/index.html) ([open it live](https://chrissanchez111.github.io/chainguard-outbound-playbook/calculator/)) | CVE patching-cost and FedRAMP POA&M calculator (runs in the browser) | A conversation opener that quantifies the pain |
 
 ---
