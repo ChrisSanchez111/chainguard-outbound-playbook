@@ -30,7 +30,7 @@ Subject: {company}'s December 7 FedRAMP deadline
 >
 > FedRAMP's new vulnerability rules take effect December 7, and {trigger}. For most teams, the biggest share of monthly findings isn't their own code. It's the base images underneath it.
 >
-> Chainguard replaces those base images with hardened, minimal ones: 97.6% fewer CVEs than the open source versions, FIPS-validated variants, and a 7-day SLA on critical CVEs. That's tighter than FedRAMP's own 30-day window for highs.
+> Chainguard replaces those base images with hardened, minimal ones: 97.6% fewer CVEs than the open source versions, FIPS-validated variants, and a contractual SLA of 7 days on criticals and 14 on highs, against FedRAMP's 30-day window for highs.
 >
 > Worth 20 minutes to look at where {company}'s monthly findings come from?
 >

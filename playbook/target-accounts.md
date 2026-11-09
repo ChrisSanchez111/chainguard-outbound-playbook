@@ -4,7 +4,7 @@ One persona: Head of Product Security / Director of Security Engineering at a so
 
 One geography: US East. Chainguard seems to split its enterprise BDR roles by region, and I'm based in New Jersey, so every account here is headquartered on the East Coast.
 
-One trigger: FedRAMP. Every account here is FedRAMP authorized or working toward it, and FedRAMP's 2026 Consolidated Rules give all of them the same deadline. Providers have to adopt the new Vulnerability Detection & Response and Vulnerability Evaluation & Reporting rules by December 7, 2026, and the rules become mandatory January 1, 2027. Vulnerability management just got a date on the calendar.
+One trigger: FedRAMP. Every account here is FedRAMP authorized or working toward it, and FedRAMP's 2026 Consolidated Rules give all of them the same deadline. Providers have to adopt the new Vulnerability Detection & Response and Vulnerability Evaluation & Reporting rules by December 7, 2026, ahead of wider Consolidated Rules adoption on January 1, 2027. Vulnerability management just got a date on the calendar.
 
 How the list was filtered
 - East Coast headquarters only.
