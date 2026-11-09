@@ -8,7 +8,7 @@ At my current employer, I support commercial and enterprise sales across IBM i a
 
 I’m particularly interested in cybersecurity, cloud infrastructure, AI, and emerging technologies. I enjoy getting beyond the surface of a product, understanding the problems it solves, and figuring out how to bring it to the right market.
 
-I put this playbook together to explore Chainguard’s technology, market opportunities, and how I’d approach enterprise outbound. I built it as part of my applications for Chainguard’s Enterprise and Commercial BDR roles.
+I put this playbook together to explore Chainguard’s technology, market opportunities, and how I’d approach enterprise outbound.
 
 Thanks for taking a look.
 
