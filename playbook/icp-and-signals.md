@@ -19,7 +19,7 @@ The licensing line that drives deals: the free tier gives five images with only 
 
 Who: SaaS and software companies selling into the federal government, authorized or in process.
 
-Pain: Monthly continuous monitoring. Every high CVE needs a fix within 30 days or a POA&M entry, and most findings come from base images. FedRAMP's 2026 Consolidated Rules add new vulnerability rulesets due December 7, 2026, mandatory January 1, 2027.
+Pain: Monthly continuous monitoring. Every high CVE needs a fix within 30 days or a POA&M entry, and most findings come from base images. FedRAMP's 2026 Consolidated Rules add new vulnerability rulesets due December 7, 2026, ahead of wider Consolidated Rules adoption on January 1, 2027.
 
 Chainguard angle: Fewer findings before the scan runs, FIPS-validated images for High, and an SLA tighter than FedRAMP's own windows.
 

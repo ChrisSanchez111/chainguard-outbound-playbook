@@ -4,7 +4,7 @@ A signal-driven outbound system for selling secure open source to FedRAMP softwa
 
 I’m Christopher Sanchez. I’m an Army veteran, business development professional, and someone who’s always been drawn to technology and the business behind it.
 
-I currently work at Precisely, supporting commercial and enterprise sales across IBM i and Mainframe products/services.
+At my current employer, I support commercial and enterprise sales across IBM i and Mainframe products/services.
 
 I’m particularly interested in cybersecurity, cloud infrastructure, AI, and emerging technologies. I enjoy getting beyond the surface of a product, understanding the problems it solves, and figuring out how to bring it to the right market.
 
@@ -29,13 +29,13 @@ Thanks for taking a look.
 
 ## Why Chainguard, why now
 
-Most of the vulnerabilities security teams chase every month aren't in their own code. They're in the base images and open source packages underneath it. Chainguard rebuilds that open source from source, so the images ship with 97.6% fewer CVEs and come with an SLA to keep them that way. The sharpest version of that pain right now is FedRAMP. Every federal software provider has to fix high CVEs within 30 days or log a POA&M, and FedRAMP's 2026 Consolidated Rules put new vulnerability requirements on the calendar: December 7, 2026, then mandatory on January 1, 2027. This playbook narrows to that conversation: one persona (Head of Product Security at a FedRAMP provider), ten East Coast accounts, and one sequence built for them.
+Most of the vulnerabilities security teams chase every month aren't in their own code. They're in the base images and open source packages underneath it. Chainguard rebuilds that open source from source, so the images ship with 97.6% fewer CVEs and come with an SLA to keep them that way. The sharpest version of that pain right now is FedRAMP. Every federal software provider has to fix high CVEs within 30 days or log a POA&M, and FedRAMP's 2026 Consolidated Rules put new vulnerability requirements on the calendar: December 7, 2026, ahead of wider Consolidated Rules adoption on January 1, 2027. This playbook narrows to that conversation: one persona (Head of Product Security at a FedRAMP provider), ten East Coast accounts, and one sequence built for them.
 
 ---
 
 ## How I work
 
-At Precisely I'm the sole BDR on a ~3,000 account IBM i and mainframe territory supporting 12 AEs across North America and EMEA. I couldn't work that list by volume, so I co-designed a Claude-powered dashboard that pulls account and contact data from ZoomInfo and Salesforce via API and ranks accounts on live signals: news, restructuring, intent, and product whitespace. I'm its only user and maintain its logic myself.
+At my current employer I'm the sole BDR on a ~3,000 account IBM i and mainframe territory supporting 12 AEs across North America and EMEA. I couldn't work that list by volume, so I co-designed a Claude-powered dashboard that pulls account and contact data from our CRM and data providers and ranks accounts on live signals: news, restructuring, intent, and product whitespace. I'm its only user and maintain its logic myself.
 
 `tools/signal_scorer.py` is the same idea, rebuilt for Chainguard's market. [Here's what it produces](tools/call-sheet.md).
 
@@ -70,4 +70,4 @@ The calculator is live at [chrissanchez111.github.io/chainguard-outbound-playboo
 - Calculator defaults are editable assumptions, not Chainguard benchmarks.
 - I'm not affiliated with Chainguard. Feedback from anyone on the team is very welcome.
 
-Contact: [github.com/ChrisSanchez111](https://github.com/ChrisSanchez111) · LinkedIn: [linkedin.com/in/christopher-sanchez-fordham](https://www.linkedin.com/in/christopher-sanchez-fordham)
+Contact: csanchez72@fordham.edu · LinkedIn: [linkedin.com/in/christopher-sanchez-fordham](https://www.linkedin.com/in/christopher-sanchez-fordham)
